@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Saudi Recycling Guide | دليل التدوير في السعودية</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav container">
+      <a class="brand" href="#home"><span class="logo">♻</span><span data-i18n="appName">دليل التدوير</span></a>
+      <button class="menuBtn" id="menuBtn" aria-label="Menu">☰</button>
+      <div class="navLinks" id="navLinks">
+        <a href="#guide" data-i18n="navGuide">الدليل</a>
+        <a href="#centers" data-i18n="navCenters">المراكز</a>
+        <a href="#records" data-i18n="navRecords">سجلاتي</a>
+        <a href="#dashboard" data-i18n="navDashboard">لوحة التحكم</a>
+        <button class="ghost" id="langToggle">English</button>
+        <button class="primary small" id="openAuth" data-i18n="login">تسجيل الدخول</button>
+        <button class="danger small hidden" id="logoutBtn" data-i18n="logout">خروج</button>
+      </div>
+    </nav>
+    <section class="container heroGrid" id="home">
+      <div>
+        <p class="eyebrow" data-i18n="ksa">المملكة العربية السعودية</p>
+        <h1 data-i18n="heroTitle">منصة ذكية تساعدك على إعادة التدوير بسهولة</h1>
+        <p class="lead" data-i18n="heroText">ابحث عن المواد القابلة للتدوير، اعرف طريقة التعامل معها، وسجّل كمية النفايات لتحصل على نقاط تشجيعية.</p>
+        <div class="searchBox">
+          <input id="mainSearch" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="ابحث: قارورة بلاستيك، ورق، بطارية..." />
+          <button class="primary" id="searchBtn" data-i18n="search">بحث</button>
+        </div>
+        <div class="stats">
+          <div><strong id="itemsCount">0</strong><span data-i18n="materials">مادة</span></div>
+          <div><strong id="centersCount">0</strong><span data-i18n="centers">مراكز</span></div>
+          <div><strong id="userPoints">0</strong><span data-i18n="points">نقاطي</span></div>
+        </div>
+      </div>
+      <div class="heroCard">
+        <h3 data-i18n="quickAdd">تسجيل نفايات سريع</h3>
+        <form id="wasteForm">
+          <label data-i18n="wasteType">نوع النفايات</label>
+          <select id="wasteType"></select>
+          <label data-i18n="quantity">الكمية بالكيلو</label>
+          <input id="quantity" type="number" min="0.1" step="0.1" value="1" required />
+          <label data-i18n="city">المدينة</label>
+          <select id="citySelect"></select>
+          <button class="primary full" type="submit" data-i18n="saveRecord">حفظ السجل وإضافة نقاط</button>
+        </form>
+        <p class="note" data-i18n="authNote">يلزم تسجيل الدخول لحفظ السجلات.</p>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="container section" id="guide">
+      <div class="sectionHead">
+        <div><p class="eyebrow" data-i18n="guideEyebrow">دليل المواد</p><h2 data-i18n="guideTitle">ما الذي يمكن تدويره؟</h2></div>
+        <select id="categoryFilter" aria-label="category"></select>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="cards" id="itemsGrid"></div>
+    </section>
+
+    <section class="container section" id="centers">
+      <div class="sectionHead">
+        <div><p class="eyebrow" data-i18n="centersEyebrow">مراكز السعودية</p><h2 data-i18n="centersTitle">ابحث عن أقرب مركز تدوير</h2></div>
+        <select id="centerCityFilter"></select>
+      </div>
+      <div class="centerLayout">
+        <div class="mapPanel">
+          <div class="mapToolbar">
+            <button class="secondary" id="locateBtn" data-i18n="locateMe">تحديد موقعي</button>
+            <button class="secondary" id="nearestBtn" data-i18n="nearest">الأقرب لي</button>
+            <span id="locationStatus" class="mapStatus"></span>
+          </div>
+          <div class="mapBox" id="mapBox"><span>📍</span><strong data-i18n="mapDemo">خريطة تفاعلية للمراكز</strong></div>
+        </div>
+        <div id="centersList" class="centerList"></div>
+      </div>
+    </section>
+
+    <section class="container section" id="records">
+      <div class="sectionHead">
+        <div><p class="eyebrow" data-i18n="recordsEyebrow">المتابعة</p><h2 data-i18n="recordsTitle">سجلات التدوير الخاصة بك</h2></div>
+        <button class="secondary" id="exportTxt" data-i18n="exportTxt">تصدير TXT</button>
+      </div>
+      <div class="tableWrap"><table><thead><tr><th data-i18n="date">التاريخ</th><th data-i18n="type">النوع</th><th data-i18n="qty">الكمية</th><th data-i18n="pts">النقاط</th></tr></thead><tbody id="recordsBody"></tbody></table></div>
+    </section>
+
+    <section class="container section dashboard" id="dashboard">
+      <div class="sectionHead">
+        <div><p class="eyebrow" data-i18n="adminEyebrow">النظام</p><h2 data-i18n="adminTitle">تخزين JSON وسجلات نصية</h2></div>
+        <button class="secondary" id="backupBtn" data-i18n="backup">نسخة احتياطية JSON</button>
+      </div>
+      <div class="dashGrid">
+        <div class="panel"><h3 data-i18n="usersFile">ملف المستخدمين</h3><pre id="usersPreview"></pre></div>
+        <div class="panel"><h3 data-i18n="logFile">ملف السجلات النصي</h3><pre id="logsPreview"></pre></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="authModal" role="dialog" aria-modal="true">
+    <div class="modalCard">
+      <button class="close" id="closeAuth">×</button>
+      <h2 id="authTitle" data-i18n="loginTitle">تسجيل الدخول</h2>
+      <form id="authForm">
+        <input id="nameField" data-i18n-placeholder="name" placeholder="الاسم" />
+        <input id="emailField" type="email" data-i18n-placeholder="email" placeholder="البريد الإلكتروني" required />
+        <input id="passwordField" type="password" data-i18n-placeholder="password" placeholder="كلمة المرور" required />
+        <button class="primary full" type="submit" id="authSubmit" data-i18n="login">تسجيل الدخول</button>
+      </form>
+      <button class="linkBtn" id="switchAuth" data-i18n="needAccount">إنشاء حساب جديد</button>
+      <p class="formMsg" id="formMsg"></p>
+    </div>
+  </div>
+
+  <footer><p>© 2026 Saudi Recycling Guide</p></footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+[
+  {"id":"paper","name":{"ar":"ورق وكرتون","en":"Paper & Cardboard"},"icon":"📄","color":"#22c55e","description":{"ar":"مواد ورقية نظيفة وجافة مثل الصحف والكرتون.","en":"Clean and dry paper materials such as newspapers and cardboard."}},
+  {"id":"plastic","name":{"ar":"بلاستيك","en":"Plastic"},"icon":"♻️","color":"#16a34a","description":{"ar":"عبوات وقوارير بلاستيكية حسب رمز التدوير.","en":"Plastic bottles and containers by recycling code."}},
+  {"id":"glass","name":{"ar":"زجاج","en":"Glass"},"icon":"🍾","color":"#0ea5e9","description":{"ar":"زجاجات ومرطبانات الطعام والمشروبات.","en":"Food and beverage bottles and jars."}},
+  {"id":"metal","name":{"ar":"معادن","en":"Metals"},"icon":"🥫","color":"#64748b","description":{"ar":"علب الألمنيوم والحديد والمعادن الجافة.","en":"Aluminum, steel, and dry metal cans."}},
+  {"id":"organic","name":{"ar":"عضوي","en":"Organic"},"icon":"🌱","color":"#84cc16","description":{"ar":"بقايا الطعام والنفايات النباتية القابلة للتسميد.","en":"Food scraps and plant-based compostable waste."}},
+  {"id":"electronics","name":{"ar":"إلكترونيات","en":"Electronics"},"icon":"💻","color":"#8b5cf6","description":{"ar":"أجهزة إلكترونية تحتاج معالجة خاصة وآمنة.","en":"Electronic devices requiring secure special handling."}},
+  {"id":"special","name":{"ar":"نفايات خاصة","en":"Special Waste"},"icon":"⚠️","color":"#f97316","description":{"ar":"بطاريات وزيوت ومصابيح ومواد لا توضع في النفايات العامة.","en":"Batteries, oils, lamps, and materials not suitable for general waste."}}
+]

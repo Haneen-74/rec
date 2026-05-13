@@ -1,0 +1,3 @@
+2026-05-01T09:00:00+03:00 | seed | created demo admin account admin@recycling.sa
+2026-05-02T10:15:00+03:00 | seed | added Saudi recycling centers dataset with coordinates
+2026-05-03T16:20:00+03:00 | seed | enabled bilingual map and geolocation workflow
